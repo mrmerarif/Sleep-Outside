@@ -31,7 +31,7 @@
     "space-in-parens": "error",
     "space-infix-ops": "error",
     "comma-dangle": 0,
-    "max-len": 0,
+    "max-len ": 0,
     "import/extensions": 0,
     "no-underscore-dangle": 0,
     "consistent-return": 0,
