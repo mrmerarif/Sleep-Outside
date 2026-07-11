@@ -1,10 +1,13 @@
-import { setLocalStorage } from './utils.mjs';
+import { setLocalStorage, getLocalStorage } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 
 const dataSource = new ProductData('tents');
 
 function addProductToCart(product) {
-  setLocalStorage('so-cart', product);
+  // FIX START: changed logic to store multiple items instead of overwriting
+  const cart = getLocalStorage('so-cart') || []; // get existing cart or start with empty array
+  cart.push(product); // add the new product
+  setLocalStorage('so-cart', cart);
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
