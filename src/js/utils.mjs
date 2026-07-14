@@ -21,3 +21,12 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+/* NEW FUNCTION getParam(param): returns a URL parameter value
+   Example: ?product=880RR → getParam("product") returns "880RR"
+-------------------------------------------------------- */
+export function getParam(param) {
+  const queryString = window.location.search;          // gets "?product=880RR"
+  const urlParams = new URLSearchParams(queryString);  // parses the query string
+  return urlParams.get(param);                         // returns the value for the requested param
+}

@@ -1,21 +1,19 @@
-import { setLocalStorage, getLocalStorage } from './utils.mjs';
-import ProductData from './ProductData.mjs';
+// product.js
+// This module handles dynamic product detail page logic.
+// It now uses ProductDetails.mjs to render and manage product data dynamically.
 
+import { getParam } from './utils.mjs'; // helper to read URL parameters
+import ProductData from './ProductData.mjs';
+import ProductDetails from './ProductDetails.mjs';
+
+// Create a data source for tents
 const dataSource = new ProductData('tents');
 
-function addProductToCart(product) {
-  // FIX START: changed logic to store multiple items instead of overwriting
-  const cart = getLocalStorage('so-cart') || []; // get existing cart or start with empty array
-  cart.push(product); // add the new product
-  setLocalStorage('so-cart', cart);
-}
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
+// Get the product ID from the URL query string (?product=880RR)
+const productId = getParam('product');
 
-// add listener to Add to Cart button
-document
-  .getElementById('addToCart')
-  .addEventListener('click', addToCartHandler);
+// Create a ProductDetails instance with the product ID and data source
+const product = new ProductDetails(productId, dataSource);
+
+// Initialize the product detail page
+product.init();
