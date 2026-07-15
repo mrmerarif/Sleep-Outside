@@ -39,7 +39,7 @@ export default class ProductDetails {
     // Extract JSON fields safely
     const brandName = this.product.Brand?.Name || "";
     const productName = this.product.NameWithoutBrand || this.product.Name;
-    const imageSrc = this.product.Image;
+    const imageSrc = `/images/tents/${this.product.Image}`; //new path
     const price = this.product.FinalPrice;
     const color = this.product.Colors?.[0]?.ColorName || "";
     const description = this.product.DescriptionHtmlSimple;

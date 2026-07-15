@@ -1,19 +1,38 @@
-// product.js
-// This module handles dynamic product detail page logic.
-// It now uses ProductDetails.mjs to render and manage product data dynamically.
-
-import { getParam } from './utils.mjs'; // helper to read URL parameters
 import ProductData from './ProductData.mjs';
-import ProductDetails from './ProductDetails.mjs';
+import { setLocalStorage } from './utils.mjs';
 
-// Create a data source for tents
 const dataSource = new ProductData('tents');
 
-// Get the product ID from the URL query string (?product=880RR)
-const productId = getParam('product');
+async function addToCartHandler(e) {
+  const product = await dataSource.findProductById(e.target.dataset.id);
+  addProductToCart(product);
+}
 
-// Create a ProductDetails instance with the product ID and data source
-const product = new ProductDetails(productId, dataSource);
+function addProductToCart(product) {
+  const cart = JSON.parse(localStorage.getItem('so-cart')) || [];
+  cart.push(product);
+  setLocalStorage('so-cart', cart);
+}
 
-// Initialize the product detail page
-product.init();
+async function renderProductDetails() {
+  const productId = new URLSearchParams(window.location.search).get('product');
+  const product = await dataSource.findProductById(productId);
+
+  document.querySelector('.product-detail').innerHTML = `
+    <h3>${product.Brand.Name}</h3>
+    <h2 class="divider">${product.NameWithoutBrand}</h2>
+    <img class="divider" src="${product.Image}" alt="${product.Name}" />
+    <p class="product-card__price">$${product.FinalPrice}</p>
+    <p class="product__color">${product.Colors[0].ColorName}</p>
+    <p class="product__description">${product.DescriptionHtmlSimple}</p>
+    <div class="product-detail__add">
+      <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+    </div>
+  `;
+
+  document
+    .getElementById('addToCart')
+    .addEventListener('click', addToCartHandler);
+}
+
+renderProductDetails();
