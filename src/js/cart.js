@@ -4,6 +4,10 @@ function renderCartContents() {
   const cartItems = getLocalStorage('so-cart') || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  document.querySelector('#cart-icon').classList.add('cart-bounce');
+  setTimeout(() => {
+    document.querySelector('#cart-icon').classList.remove('cart-bounce');
+  }, 600);
 }
 
 function cartItemTemplate(item) {
