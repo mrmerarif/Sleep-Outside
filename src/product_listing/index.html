@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sleep Outside - Product Listing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div id="header"></div>
+  </header>
+
+  <main>
+    <section class="product-listing">
+      <h1 class="product-list-title">Top Products</h1>
+
+      <template id="product-card-template">
+        <li class="product-card">
+          <a href="#">
+            <img src="" alt="" />
+            <h3 class="card__brand"></h3>
+            <h2 class="card__name"></h2>
+            <p class="product-card__price"></p>
+          </a>
+        </li>
+      </template>
+
+      <div class="product-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div id="footer"></div>
+  </footer>
+
+  <script type="module" src="../js/product-listing.js"></script>
+</body>
+</html>
